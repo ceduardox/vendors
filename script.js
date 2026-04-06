@@ -244,7 +244,7 @@ function getLeaderNextGoalMessage(totalUnits) {
 }
 
 function getProjectedGoalMessage(projectedSales, monthSalesTotal, workdays) {
-  const remainingDays = Math.max(22 - workdays, 0);
+  const remainingDays = Math.max(30 - workdays, 0);
 
   if (projectedSales >= 100) {
     return "Con este ritmo proyectas meta elite (100+). Excelente rendimiento comercial.";
@@ -314,7 +314,7 @@ function runNewSellerCalculator() {
     const monthSalesPrev = toNumber(monthSalesPrevInput.value);
     const monthIncomePrev = toNumber(monthIncomePrevInput.value);
     const workdaysRaw = toNumber(workdaysInput.value);
-    const workdays = Math.min(Math.max(workdaysRaw || 1, 1), 22);
+    const workdays = Math.min(Math.max(workdaysRaw || 1, 1), 30);
     workdaysInput.value = String(workdays);
     const level = getNewSellerLevel(sales);
     const rate = getNewSellerRate(sales);
@@ -324,7 +324,7 @@ function runNewSellerCalculator() {
     const total = commission;
     const monthIncomeBaseTotal = monthIncomePrev + total;
     const monthIncomeTotal = monthIncomeBaseTotal + bonus;
-    const projectedSales = Math.round(safeDiv(monthSalesTotal, workdays) * 22);
+    const projectedSales = Math.round(safeDiv(monthSalesTotal, workdays) * 30);
     const projectedBonus = getNewSellerBonus(projectedSales);
 
     levelEl.textContent = level;

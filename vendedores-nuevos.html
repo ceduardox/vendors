@@ -36,7 +36,6 @@
       <a href="#bonos">Bonos</a>
       <a href="#graficas">Graficas</a>
       <a href="#calculadora">Calculadora</a>
-      <a href="#ejemplos">Ejemplos</a>
       <a href="#requisitos">Requisitos</a>
     </nav>
 
@@ -59,13 +58,13 @@
       <article class="card">
         <h2>Como se calcula tu pago</h2>
         <p class="muted">Todo lo que vendas hoy se paga a 30 Bs. Cada dia empieza en cero.</p>
-        <p class="muted">El bono mensual se calcula por el acumulado del mes (22 dias).</p>
+        <p class="muted">El bono mensual se calcula por el acumulado del mes (30 dias).</p>
       </article>
     </section>
 
     <section id="bonos" class="section">
       <div class="section-head">
-        <h2>Bonos por meta mensual (22 dias)</h2>
+        <h2>Bonos por meta mensual (30 dias)</h2>
         <p>Se pagan por acumulado mensual, no por dia.</p>
       </div>
       <div class="tier-grid">
@@ -85,7 +84,7 @@
           <p class="muted">Meta alta del equipo comercial.</p>
         </article>
       </div>
-      <p class="note">Meta recomendada: minimo 3 frascos por dia durante 22 dias (66 al mes) y empujar a 4-5 por dia para llegar a 100+.</p>
+      <p class="note">Meta recomendada: minimo 3 frascos por dia durante 30 dias (90 al mes) y empujar a 4-5 por dia para llegar a 100+.</p>
     </section>
 
     <section id="graficas" class="section">
@@ -121,20 +120,20 @@
           <h3>Datos del dia</h3>
           <div class="form-grid two">
             <label>
-              Frascos vendidos hoy
+              <span class="label-text">Ventas de hoy</span>
               <input id="new-sales" type="number" min="0" value="10">
             </label>
             <label>
-              Ventas acumuladas del mes (antes de hoy)
+              <span class="label-text">Ventas del mes (antes de hoy)</span>
               <input id="new-month-sales-prev" type="number" min="0" value="0">
             </label>
             <label>
-              Ganancia acumulada del mes (antes de hoy, sin bono mensual)
+              <span class="label-text">Ganancia mes (sin bono, antes de hoy)</span>
               <input id="new-month-income-prev" type="number" min="0" value="0">
             </label>
             <label>
-              Dias trabajados este mes (incluyendo hoy)
-              <input id="new-workdays" type="number" min="1" max="22" value="1">
+              <span class="label-text">Dias trabajados del mes</span>
+              <input id="new-workdays" type="number" min="1" max="30" value="1">
             </label>
           </div>
         </div>
@@ -191,7 +190,7 @@
                 <strong id="new-month-income-total">0 Bs</strong>
               </div>
               <div class="summary-item">
-                <span>Proyeccion de ventas al cierre (22 dias)</span>
+                <span>Proyeccion de ventas al cierre (30 dias)</span>
                 <strong id="new-projection-sales">0 frascos</strong>
               </div>
               <div class="summary-item">
@@ -208,33 +207,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="ejemplos" class="section">
-      <div class="section-head">
-        <h2>Ejemplos rapidos del dia</h2>
-        <p>La comision diaria siempre es 30 Bs por frasco.</p>
-      </div>
-      <div class="example-grid">
-        <article class="example-card">
-          <small>Si vendes hoy</small>
-          <h3>3 frascos</h3>
-          <p>Comision: 90 Bs</p>
-          <p>Total: 90 Bs</p>
-        </article>
-        <article class="example-card">
-          <small>Si vendes hoy</small>
-          <h3>5 frascos</h3>
-          <p>Comision: 150 Bs</p>
-          <p>Total: 150 Bs</p>
-        </article>
-        <article class="example-card">
-          <small>Si vendes hoy</small>
-          <h3>8 frascos</h3>
-          <p>Comision: 240 Bs</p>
-          <p>Total: 240 Bs</p>
-        </article>
       </div>
     </section>
 
