@@ -750,6 +750,10 @@ input:focus {
   display: block;
 }
 
+.chart-mini {
+  height: 130px;
+}
+
 .summary-grid {
   display: grid;
   gap: 0.6rem;

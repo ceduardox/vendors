@@ -153,6 +153,8 @@ function drawNewSellerCharts(state) {
 function drawLeaderCharts(state) {
   const dailyCanvas = document.getElementById("leader-chart-daily");
   const monthlyCanvas = document.getElementById("leader-chart-monthly");
+  const miniSalesCanvas = document.getElementById("leader-chart-mini-sales");
+  const miniPayCanvas = document.getElementById("leader-chart-mini-pay");
   const teamLabels = state.teamSalesList.map((_, index) => `V${index + 1}`);
   const salesLabels = [...teamLabels, "Total"];
   const salesValues = [...state.teamSalesList, state.teamTotalUnits];
@@ -172,6 +174,16 @@ function drawLeaderCharts(state) {
   );
 
   drawBarChart(monthlyCanvas, payLabels, payValues, {
+    max: Math.max(state.teamCommission, ...payValues, 1),
+    colors: payColors
+  });
+
+  drawBarChart(miniSalesCanvas, salesLabels, salesValues, {
+    max: Math.max(state.teamTotalUnits, ...salesValues, 1),
+    colors: salesColors
+  });
+
+  drawBarChart(miniPayCanvas, payLabels, payValues, {
     max: Math.max(state.teamCommission, ...payValues, 1),
     colors: payColors
   });
