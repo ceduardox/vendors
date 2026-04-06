@@ -154,27 +154,27 @@ function drawLeaderCharts(state) {
   const dailyCanvas = document.getElementById("leader-chart-daily");
   const monthlyCanvas = document.getElementById("leader-chart-monthly");
   const teamLabels = state.teamSalesList.map((_, index) => `V${index + 1}`);
-  const dailyLabels = ["Tu venta", ...teamLabels, "Total"];
-  const dailyValues = [state.ownSales, ...state.teamSalesList, state.teamTotalUnits];
-  const dailyColors = dailyValues.map((_, index) =>
-    index === 0 ? "#1d4ed8" : "#c7d2e5"
+  const salesLabels = [...teamLabels, "Total"];
+  const salesValues = [...state.teamSalesList, state.teamTotalUnits];
+  const salesColors = salesValues.map((_, index) =>
+    index === salesValues.length - 1 ? "#1d4ed8" : "#c7d2e5"
   );
-  dailyColors[dailyColors.length - 1] = "#0b3ea8";
 
-  drawBarChart(dailyCanvas, dailyLabels, dailyValues, {
-    max: Math.max(state.teamTotalUnits, ...dailyValues, 1),
-    colors: dailyColors
+  drawBarChart(dailyCanvas, salesLabels, salesValues, {
+    max: Math.max(state.teamTotalUnits, ...salesValues, 1),
+    colors: salesColors
   });
 
-  drawBarChart(
-    monthlyCanvas,
-    ["Actual", "Meta 120", "Meta 150", "Meta 180"],
-    [state.monthTeamSalesTotal, 120, 150, 180],
-    {
-      max: Math.max(180, state.monthTeamSalesTotal),
-      colors: ["#1d4ed8", "#c7d2e5", "#c7d2e5", "#c7d2e5"]
-    }
+  const payLabels = [...teamLabels, "Total"];
+  const payValues = [...state.teamPayoutList, state.teamCommission];
+  const payColors = payValues.map((_, index) =>
+    index === payValues.length - 1 ? "#0b3ea8" : "#f28a2e"
   );
+
+  drawBarChart(monthlyCanvas, payLabels, payValues, {
+    max: Math.max(state.teamCommission, ...payValues, 1),
+    colors: payColors
+  });
 }
 
 window.addEventListener("resize", () => {
@@ -198,11 +198,11 @@ function getNewSellerLevel(units) {
   return "30 Bs por frasco";
 }
 
-function getLeaderTeamBonus(totalUnits) {
-  if (totalUnits >= 180) return 800;
-  if (totalUnits >= 150) return 500;
-  if (totalUnits >= 120) return 300;
-  return 0;
+function getLeaderSellerRate(units) {
+  if (units >= 100) return 10;
+  if (units >= 80) return 7;
+  if (units >= 60) return 5;
+  return 5;
 }
 
 function getNewSellerNextLevelMessage(units) {
@@ -224,22 +224,6 @@ function getNewSellerNextBonusMessage(units) {
     return `Meta alta: te faltan ${missing} frasco${missing === 1 ? "" : "s"} para bono de +2,200 Bs.`;
   }
   return "Excelente: ya activaste el bono mensual maximo de +2,200 Bs.";
-}
-
-function getLeaderNextGoalMessage(totalUnits) {
-  if (totalUnits < 120) {
-    const missing = 120 - totalUnits;
-    return `Meta mensual equipo: faltan ${missing} frasco${missing === 1 ? "" : "s"} para bono de +300 Bs.`;
-  }
-  if (totalUnits < 150) {
-    const missing = 150 - totalUnits;
-    return `Buen avance mensual: faltan ${missing} frasco${missing === 1 ? "" : "s"} para bono de +500 Bs.`;
-  }
-  if (totalUnits < 180) {
-    const missing = 180 - totalUnits;
-    return `Meta alta equipo: faltan ${missing} frasco${missing === 1 ? "" : "s"} para bono de +800 Bs.`;
-  }
-  return "Excelente: bono mensual maximo de equipo (+800 Bs) activo.";
 }
 
 function getProjectedGoalMessage(projectedSales, monthSalesTotal, workdays) {
@@ -359,86 +343,58 @@ function runLeaderCalculator() {
   const teamInputs = Array.from(document.querySelectorAll(".leader-team-sales"));
   const ownEl = document.getElementById("leader-own-commission");
   const teamEl = document.getElementById("leader-team-commission");
-  const bonusEl = document.getElementById("leader-team-bonus");
   const totalEl = document.getElementById("leader-total");
-  const monthTeamSalesPrevInput = document.getElementById("leader-month-team-sales-prev");
-  const monthIncomePrevInput = document.getElementById("leader-month-income-prev");
   const teamSalesTotalEl = document.getElementById("leader-team-sales-total");
   const v1PayEl = document.getElementById("leader-v1-pay");
   const v2PayEl = document.getElementById("leader-v2-pay");
   const v3PayEl = document.getElementById("leader-v3-pay");
   const monthTeamSalesTotalEl = document.getElementById("leader-month-team-sales-total");
-  const monthIncomeBaseTotalEl = document.getElementById("leader-month-income-base-total");
-  const monthIncomeTotalEl = document.getElementById("leader-month-income-total");
-  const nextTeamGoalEl = document.getElementById("leader-next-team-goal");
 
   if (
     !ownInput ||
     teamInputs.length === 0 ||
     !ownEl ||
     !teamEl ||
-    !bonusEl ||
     !totalEl ||
-    !monthTeamSalesPrevInput ||
-    !monthIncomePrevInput ||
     !teamSalesTotalEl ||
     !v1PayEl ||
     !v2PayEl ||
     !v3PayEl ||
-    !monthTeamSalesTotalEl ||
-    !monthIncomeBaseTotalEl ||
-    !monthIncomeTotalEl ||
-    !nextTeamGoalEl
+    !monthTeamSalesTotalEl
   ) return;
-
-  const mentorTiers = [
-    { upTo: 4, rate: 5 },
-    { upTo: 9, rate: 7 },
-    { upTo: Infinity, rate: 10 }
-  ];
 
   const update = () => {
     const ownSales = toNumber(ownInput.value);
     const teamSalesList = teamInputs.map((input) => toNumber(input.value));
-    const monthTeamSalesPrev = toNumber(monthTeamSalesPrevInput.value);
-    const monthIncomePrev = toNumber(monthIncomePrevInput.value);
     const teamTotalUnits = teamSalesList.reduce((sum, val) => sum + val, 0);
 
     const ownCommission = ownSales * 30;
-    const teamPayoutList = teamSalesList.map((sales) => calcProgressive(sales, mentorTiers));
+    const teamRateList = teamSalesList.map((sales) => getLeaderSellerRate(sales));
+    const teamPayoutList = teamSalesList.map((sales, index) => sales * teamRateList[index]);
     const teamCommission = teamPayoutList.reduce((sum, pay) => sum + pay, 0);
-    const monthTeamSalesTotal = monthTeamSalesPrev + teamTotalUnits;
-    const teamBonus = getLeaderTeamBonus(monthTeamSalesTotal);
     const total = ownCommission + teamCommission;
-    const monthIncomeBaseTotal = monthIncomePrev + total;
-    const monthIncomeTotal = monthIncomeBaseTotal + teamBonus;
 
     ownEl.textContent = formatBs(ownCommission);
     teamEl.textContent = formatBs(teamCommission);
-    bonusEl.textContent = formatBs(teamBonus);
     totalEl.textContent = formatBs(total);
     teamSalesTotalEl.textContent = formatUnits(teamTotalUnits);
     v1PayEl.textContent = formatBs(teamPayoutList[0] || 0);
     v2PayEl.textContent = formatBs(teamPayoutList[1] || 0);
     v3PayEl.textContent = formatBs(teamPayoutList[2] || 0);
-    monthTeamSalesTotalEl.textContent = formatUnits(monthTeamSalesTotal);
-    monthIncomeBaseTotalEl.textContent = formatBs(monthIncomeBaseTotal);
-    monthIncomeTotalEl.textContent = formatBs(monthIncomeTotal);
-    nextTeamGoalEl.textContent = getLeaderNextGoalMessage(monthTeamSalesTotal);
+    monthTeamSalesTotalEl.textContent = formatUnits(teamTotalUnits);
 
     lastLeaderState = {
       ownSales,
       teamSalesList,
+      teamPayoutList,
       teamTotalUnits,
-      monthTeamSalesTotal
+      teamCommission
     };
     drawLeaderCharts(lastLeaderState);
   };
 
   ownInput.addEventListener("input", update);
   teamInputs.forEach((input) => input.addEventListener("input", update));
-  monthTeamSalesPrevInput.addEventListener("input", update);
-  monthIncomePrevInput.addEventListener("input", update);
   update();
 }
 
