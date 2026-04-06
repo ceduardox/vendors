@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RYZTOR | Plan Vendedores Nuevos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="nuevos">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="topbar reveal">
+    <a class="brand" href="index.html">RYZTOR</a>
+    <nav>
+      <a href="vendedor-lider.html">Vendedor Lider</a>
+      <a class="active" href="vendedores-nuevos.html">Vendedores Nuevos</a>
+    </nav>
+  </header>
+
+  <main class="container reveal">
+    <section class="hero compact">
+      <p class="kicker">Plan de Comisiones</p>
+      <h1>Vendedores Nuevos</h1>
+      <p class="lead">
+        Tu pago depende de cuantas ventas cierres hoy.
+        Cada dia se calcula desde cero.
+      </p>
+    </section>
+
+    <section class="grid cards reveal-stagger">
+      <article class="card">
+        <h2>Comision diaria fija</h2>
+        <p class="big-number">30 Bs</p>
+        <p class="muted">Cada venta del dia se paga a 30 Bs, sin tramos por cantidad.</p>
+      </article>
+      <article class="card">
+        <h2>Incentivo real</h2>
+        <p class="big-number">+600 / +1,200 / +2,200 Bs</p>
+        <p class="muted">Bonos mensuales por cumplimiento de metas acumuladas.</p>
+      </article>
+    </section>
+
+    <section class="grid two-col reveal-stagger">
+      <article class="card">
+        <h2>Pago diario por venta</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Condicion diaria</th>
+                <th>Pago por frasco</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Condicion diaria">Todas las ventas del dia</td>
+                <td data-label="Pago por frasco">30 Bs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">
+          Comision fija: hoy cuenta solo lo que vendes hoy, siempre a 30 Bs por frasco.
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>Bonos por meta mensual</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Meta del mes (22 dias)</th>
+                <th>Bono extra</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Meta del mes (22 dias)">60 a 79 frascos</td>
+                <td data-label="Bono extra">+600 Bs</td>
+              </tr>
+              <tr>
+                <td data-label="Meta del mes (22 dias)">80 a 109 frascos</td>
+                <td data-label="Bono extra">+1,200 Bs</td>
+              </tr>
+              <tr>
+                <td data-label="Meta del mes (22 dias)">110 o mas frascos</td>
+                <td data-label="Bono extra">+2,200 Bs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">Meta recomendada: minimo 3 frascos por dia durante 22 dias (66 al mes) y empujar a 4-5 por dia para bonos altos.</p>
+      </article>
+    </section>
+
+    <section class="card reveal">
+      <h2>Reporte de hoy + avance mensual - Vendedor Nuevo</h2>
+      <div class="form-grid two">
+        <label>
+          Frascos vendidos hoy
+          <input id="new-sales" type="number" min="0" value="10">
+        </label>
+        <label>
+          Ventas acumuladas del mes (antes de hoy)
+          <input id="new-month-sales-prev" type="number" min="0" value="0">
+        </label>
+        <label>
+          Ganancia acumulada del mes (antes de hoy, sin bono mensual)
+          <input id="new-month-income-prev" type="number" min="0" value="0">
+        </label>
+        <label>
+          Dias trabajados este mes (incluyendo hoy)
+          <input id="new-workdays" type="number" min="1" max="22" value="1">
+        </label>
+      </div>
+
+      <div class="report-panel">
+        <div class="report-main">
+          <p>Total a cobrar hoy</p>
+          <strong id="new-total">0 Bs</strong>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-box">
+            <p>Esquema diario</p>
+            <strong id="new-level">Fijo</strong>
+          </div>
+          <div class="result-box">
+            <p>Pago por frasco</p>
+            <strong id="new-rate">0 Bs</strong>
+          </div>
+          <div class="result-box">
+            <p>Comision del dia</p>
+            <strong id="new-commission">0 Bs</strong>
+          </div>
+          <div class="result-box">
+            <p>Bono mensual actual</p>
+            <strong id="new-bonus">0 Bs</strong>
+          </div>
+        </div>
+
+        <ul class="report-list">
+          <li>
+            <span>Ventas registradas hoy</span>
+            <strong id="new-summary-sales">0 frascos</strong>
+          </li>
+          <li>
+            <span>Calculo aplicado hoy</span>
+            <strong id="new-summary-formula">0 x 0 Bs = 0 Bs</strong>
+          </li>
+          <li>
+            <span>Ventas acumuladas del mes (actualizado)</span>
+            <strong id="new-month-sales-total">0 frascos</strong>
+          </li>
+          <li>
+            <span>Dias trabajados este mes</span>
+            <strong id="new-workdays-show">1 dia</strong>
+          </li>
+          <li>
+            <span>Ganancia acumulada del mes (sin bono)</span>
+            <strong id="new-month-income-base-total">0 Bs</strong>
+          </li>
+          <li>
+            <span>Ganancia mensual estimada (con bono actual)</span>
+            <strong id="new-month-income-total">0 Bs</strong>
+          </li>
+          <li>
+            <span>Proyeccion de ventas al cierre (22 dias)</span>
+            <strong id="new-projection-sales">0 frascos</strong>
+          </li>
+          <li>
+            <span>Bono mensual proyectado</span>
+            <strong id="new-projection-bonus">0 Bs</strong>
+          </li>
+        </ul>
+
+        <div class="report-notes">
+          <p id="new-next-level" class="report-note">-</p>
+          <p id="new-next-bonus" class="report-note">-</p>
+          <p id="new-projection-note" class="report-note">-</p>
+          <p class="report-note">Precio por frasco: se define por ventas de hoy. Bono: se define por acumulado mensual.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card reveal">
+      <h2>Ejemplos rapidos del dia</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Si vendes hoy</th>
+              <th>Esquema</th>
+              <th>Comision</th>
+              <th>Bono mensual</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Si vendes hoy">3 frascos</td>
+              <td data-label="Esquema">Fijo 30 Bs</td>
+              <td data-label="Comision">90 Bs</td>
+              <td data-label="Bono">0 Bs</td>
+              <td data-label="Total">90 Bs</td>
+            </tr>
+            <tr>
+              <td data-label="Si vendes hoy">5 frascos</td>
+              <td data-label="Esquema">Fijo 30 Bs</td>
+              <td data-label="Comision">150 Bs</td>
+              <td data-label="Bono">0 Bs</td>
+              <td data-label="Total">150 Bs</td>
+            </tr>
+            <tr>
+              <td data-label="Si vendes hoy">8 frascos</td>
+              <td data-label="Esquema">Fijo 30 Bs</td>
+              <td data-label="Comision">240 Bs</td>
+              <td data-label="Bono">0 Bs</td>
+              <td data-label="Total">240 Bs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card reveal">
+      <h2>Requisitos tecnicos obligatorios</h2>
+      <ul class="checklist">
+        <li>Se dara acceso a la app interna para responder leads y registrar gestion</li>
+        <li>Cada vendedor debe contar con movil propio y conexion estable a internet</li>
+        <li>Debe crear una cuenta nueva de WhatsApp exclusiva para ventas y llamadas</li>
+        <li>La cuenta de WhatsApp de trabajo debe mantenerse activa durante la jornada comercial</li>
+      </ul>
+    </section>
+
+    <section class="card reveal">
+      <h2>Deposito de compromiso reembolsable (100 Bs)</h2>
+      <ul class="checklist">
+        <li>Cada vendedor nuevo realiza un deposito de 100 Bs al registrarse</li>
+        <li>Este deposito protege la inversion en publicidad y activacion de leads</li>
+        <li>Se devuelve al 100% cuando el vendedor cumple el periodo de arranque y sus reglas operativas</li>
+        <li>Si el vendedor abandona el proceso sin aviso o no cumple la asistencia minima, el deposito cubre parte del costo de publicidad</li>
+        <li>El deposito no es una multa laboral: es una garantia operativa para activar y sostener su canal de leads</li>
+        <li>Toda condicion de devolucion debe quedar escrita y aceptada antes de activar publicidad</li>
+      </ul>
+    </section>
+
+    <section class="card reveal">
+      <h2>Reglas operativas diarias</h2>
+      <ul class="checklist">
+        <li>Responder leads nuevos en menos de 10 minutos</li>
+        <li>Generar ventas por iniciativa propia todos los dias (redes, referidos y contactos)</li>
+        <li>No depender solo de leads pagados; cada vendedor debe mover su propio canal de ventas</li>
+        <li>Publicar contenido en redes todos los dias</li>
+        <li>Registrar cada lead y estado (nuevo, seguimiento, cerrado)</li>
+        <li>Dedicar al menos 30 minutos al dia a estudiar producto, objeciones y guiones de cierre</li>
+        <li>Asistir a todas las reuniones de capacitacion online y presencial programadas</li>
+        <li>Para recibir leads del dia, debe asistir a la oficina en el horario de asignacion</li>
+        <li>Si no asiste al punto de oficina, no se habilita publicidad para ese vendedor en ese dia</li>
+        <li>La oficina es punto de recepcion y distribucion de leads, no marcacion de jornada laboral</li>
+        <li>Reporte de cierre al final de cada dia</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer reveal">
+    <p>Plan de pagos para vendedores nuevos RYZTOR</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
