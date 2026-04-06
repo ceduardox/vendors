@@ -427,6 +427,47 @@ h3 {
   gap: 0.82rem;
 }
 
+.form-hint {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  color: #5a6a82;
+  line-height: 1.5;
+}
+
+.form-details {
+  margin-top: 0.7rem;
+  border: 1px dashed #d6dfec;
+  border-radius: 12px;
+  padding: 0 0.9rem;
+  background: #f8fafc;
+}
+
+.form-details summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.7rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: #1b2f4b;
+}
+
+.form-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.form-details summary::after {
+  content: "+";
+  font-size: 1.05rem;
+  color: var(--brand);
+}
+
+.form-details[open] summary::after {
+  content: "–";
+}
+
 .form-grid.four {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
@@ -843,6 +884,15 @@ input:focus {
 
 .accordion .checklist {
   margin-bottom: 0.7rem;
+}
+
+.accordion.compact details {
+  padding: 0 0.8rem;
+}
+
+.accordion.compact summary {
+  padding: 0.65rem 0;
+  font-size: 0.88rem;
 }
 
 .note {

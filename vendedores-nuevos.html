@@ -112,12 +112,13 @@
 
     <section id="calculadora" class="section">
       <div class="section-head">
-        <h2>Calculadora de hoy + avance mensual</h2>
-        <p>Simula tu pago del dia y el bono mensual proyectado.</p>
+        <h2>Calculadora clara de pago</h2>
+        <p>Solo necesitas tus ventas de hoy y el acumulado del mes.</p>
       </div>
       <div class="panel panel-grid">
         <div class="panel-block">
-          <h3>Datos del dia</h3>
+          <h3>Pasos rapidos</h3>
+          <p class="form-hint">1) Escribe tus ventas de hoy. 2) Si ya vendiste antes, coloca el acumulado del mes. Lo demas es opcional.</p>
           <div class="form-grid two">
             <label>
               <span class="label-text">Ventas de hoy</span>
@@ -127,15 +128,21 @@
               <span class="label-text">Ventas del mes (antes de hoy)</span>
               <input id="new-month-sales-prev" type="number" min="0" value="0">
             </label>
-            <label>
-              <span class="label-text">Ganancia mes (sin bono, antes de hoy)</span>
-              <input id="new-month-income-prev" type="number" min="0" value="0">
-            </label>
-            <label>
-              <span class="label-text">Dias trabajados del mes</span>
-              <input id="new-workdays" type="number" min="1" max="30" value="1">
-            </label>
           </div>
+
+          <details class="form-details">
+            <summary>Opcional: proyeccion avanzada</summary>
+            <div class="form-grid two">
+              <label>
+                <span class="label-text">Ganancia mes (sin bono, antes de hoy)</span>
+                <input id="new-month-income-prev" type="number" min="0" value="0">
+              </label>
+              <label>
+                <span class="label-text">Dias trabajados del mes</span>
+                <input id="new-workdays" type="number" min="1" max="30" value="1">
+              </label>
+            </div>
+          </details>
         </div>
 
         <div class="panel-block">
@@ -147,8 +154,8 @@
 
             <div class="result-grid">
               <div class="result-box">
-                <p>Esquema diario</p>
-                <strong id="new-level">Fijo</strong>
+                <p>Comision fija</p>
+                <strong id="new-level">30 Bs por frasco</strong>
               </div>
               <div class="result-box">
                 <p>Pago por frasco</p>
@@ -164,46 +171,51 @@
               </div>
             </div>
 
-            <div class="summary-grid">
-              <div class="summary-item">
-                <span>Ventas registradas hoy</span>
-                <strong id="new-summary-sales">0 frascos</strong>
-              </div>
-              <div class="summary-item">
-                <span>Calculo aplicado hoy</span>
-                <strong id="new-summary-formula">0 x 0 Bs = 0 Bs</strong>
-              </div>
-              <div class="summary-item">
-                <span>Ventas acumuladas del mes (actualizado)</span>
-                <strong id="new-month-sales-total">0 frascos</strong>
-              </div>
-              <div class="summary-item">
-                <span>Dias trabajados este mes</span>
-                <strong id="new-workdays-show">1 dia</strong>
-              </div>
-              <div class="summary-item">
-                <span>Ganancia acumulada del mes (sin bono)</span>
-                <strong id="new-month-income-base-total">0 Bs</strong>
-              </div>
-              <div class="summary-item">
-                <span>Ganancia mensual estimada (con bono actual)</span>
-                <strong id="new-month-income-total">0 Bs</strong>
-              </div>
-              <div class="summary-item">
-                <span>Proyeccion de ventas al cierre (30 dias)</span>
-                <strong id="new-projection-sales">0 frascos</strong>
-              </div>
-              <div class="summary-item">
-                <span>Bono mensual proyectado</span>
-                <strong id="new-projection-bonus">0 Bs</strong>
-              </div>
-            </div>
+            <div class="accordion compact">
+              <details>
+                <summary>Ver detalle del calculo</summary>
+                <div class="summary-grid">
+                  <div class="summary-item">
+                    <span>Ventas registradas hoy</span>
+                    <strong id="new-summary-sales">0 frascos</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Calculo aplicado hoy</span>
+                    <strong id="new-summary-formula">0 x 0 Bs = 0 Bs</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Ventas acumuladas del mes (actualizado)</span>
+                    <strong id="new-month-sales-total">0 frascos</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Dias trabajados este mes</span>
+                    <strong id="new-workdays-show">1 dia</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Ganancia acumulada del mes (sin bono)</span>
+                    <strong id="new-month-income-base-total">0 Bs</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Ganancia mensual estimada (con bono actual)</span>
+                    <strong id="new-month-income-total">0 Bs</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Proyeccion de ventas al cierre (30 dias)</span>
+                    <strong id="new-projection-sales">0 frascos</strong>
+                  </div>
+                  <div class="summary-item">
+                    <span>Bono mensual proyectado</span>
+                    <strong id="new-projection-bonus">0 Bs</strong>
+                  </div>
+                </div>
 
-            <div class="report-notes">
-              <p id="new-next-level" class="report-note">-</p>
-              <p id="new-next-bonus" class="report-note">-</p>
-              <p id="new-projection-note" class="report-note">-</p>
-              <p class="report-note">Precio por frasco: se define por ventas de hoy. Bono: se define por acumulado mensual.</p>
+                <div class="report-notes">
+                  <p id="new-next-level" class="report-note">-</p>
+                  <p id="new-next-bonus" class="report-note">-</p>
+                  <p id="new-projection-note" class="report-note">-</p>
+                  <p class="report-note">Precio por frasco: se define por ventas de hoy. Bono: se define por acumulado mensual.</p>
+                </div>
+              </details>
             </div>
           </div>
         </div>

@@ -195,8 +195,7 @@ function getNewSellerRate(units) {
 }
 
 function getNewSellerLevel(units) {
-  if (units <= 0) return "Sin ventas";
-  return "Fijo 30 Bs";
+  return "30 Bs por frasco";
 }
 
 function getLeaderTeamBonus(totalUnits) {
