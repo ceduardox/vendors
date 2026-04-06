@@ -37,8 +37,153 @@ function calcProgressive(units, tiers) {
   return total;
 }
 
+let lastNewSellerState = null;
+let lastLeaderState = null;
+
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + width, y, x + width, y + height, r);
+  ctx.arcTo(x + width, y + height, x, y + height, r);
+  ctx.arcTo(x, y + height, x, y, r);
+  ctx.arcTo(x, y, x + width, y, r);
+  ctx.closePath();
+}
+
+function drawBarChart(canvas, labels, values, options = {}) {
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const rect = canvas.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const width = rect.width;
+  const height = rect.height;
+  ctx.clearRect(0, 0, width, height);
+
+  const paddingX = 26;
+  const paddingY = 24;
+  const chartW = width - paddingX * 2;
+  const chartH = height - paddingY * 2;
+  const maxValue = Math.max(options.max || 0, ...values, 1);
+  const headroom = options.headroom || 1.12;
+  const max = maxValue * headroom;
+
+  ctx.strokeStyle = "#e7ecf4";
+  ctx.lineWidth = 1;
+  for (let i = 1; i <= 3; i += 1) {
+    const y = paddingY + (chartH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(paddingX, y);
+    ctx.lineTo(paddingX + chartW, y);
+    ctx.stroke();
+  }
+
+  const count = values.length;
+  const slot = chartW / count;
+  const barWidth = slot * 0.62;
+  const gap = slot - barWidth;
+  const colors = options.colors || [];
+
+  values.forEach((value, index) => {
+    const safeValue = Math.max(value, 0);
+    const barHeight = (safeValue / max) * chartH;
+    const x = paddingX + index * slot + gap / 2;
+    const y = paddingY + chartH - barHeight;
+    const color = colors[index] || "#c7d2e5";
+
+    ctx.fillStyle = color;
+    drawRoundedRect(ctx, x, y, barWidth, barHeight, 8);
+    ctx.fill();
+  });
+
+  ctx.fillStyle = "#1b2f4b";
+  ctx.font = "12px Lexend, sans-serif";
+  ctx.textAlign = "center";
+  values.forEach((value, index) => {
+    const safeValue = Math.max(value, 0);
+    const barHeight = (safeValue / max) * chartH;
+    const x = paddingX + index * slot + slot / 2;
+    const y = Math.max(paddingY + chartH - barHeight - 6, 12);
+    ctx.fillText(String(value), x, y);
+  });
+
+  ctx.fillStyle = "#5b6b82";
+  ctx.font = "11px Lexend, sans-serif";
+  labels.forEach((label, index) => {
+    const x = paddingX + index * slot + slot / 2;
+    const y = height - 6;
+    ctx.fillText(label, x, y);
+  });
+}
+
+function drawNewSellerCharts(state) {
+  const monthlyCanvas = document.getElementById("new-chart-monthly");
+  const dailyCanvas = document.getElementById("new-chart-daily");
+  const monthTotal = state.monthSalesTotal;
+
+  drawBarChart(
+    monthlyCanvas,
+    ["Actual", "Meta 60", "Meta 80", "Meta 100"],
+    [monthTotal, 60, 80, 100],
+    {
+      max: Math.max(100, monthTotal),
+      colors: ["#1d4ed8", "#c7d2e5", "#c7d2e5", "#c7d2e5"]
+    }
+  );
+
+  drawBarChart(
+    dailyCanvas,
+    ["Hoy", "Meta 3", "Meta 5"],
+    [state.sales, 3, 5],
+    {
+      max: Math.max(5, state.sales),
+      colors: ["#f28a2e", "#c7d2e5", "#c7d2e5"]
+    }
+  );
+}
+
+function drawLeaderCharts(state) {
+  const dailyCanvas = document.getElementById("leader-chart-daily");
+  const monthlyCanvas = document.getElementById("leader-chart-monthly");
+  const teamLabels = state.teamSalesList.map((_, index) => `V${index + 1}`);
+  const dailyLabels = ["Tu venta", ...teamLabels, "Total"];
+  const dailyValues = [state.ownSales, ...state.teamSalesList, state.teamTotalUnits];
+  const dailyColors = dailyValues.map((_, index) =>
+    index === 0 ? "#1d4ed8" : "#c7d2e5"
+  );
+  dailyColors[dailyColors.length - 1] = "#0b3ea8";
+
+  drawBarChart(dailyCanvas, dailyLabels, dailyValues, {
+    max: Math.max(state.teamTotalUnits, ...dailyValues, 1),
+    colors: dailyColors
+  });
+
+  drawBarChart(
+    monthlyCanvas,
+    ["Actual", "Meta 120", "Meta 150", "Meta 180"],
+    [state.monthTeamSalesTotal, 120, 150, 180],
+    {
+      max: Math.max(180, state.monthTeamSalesTotal),
+      colors: ["#1d4ed8", "#c7d2e5", "#c7d2e5", "#c7d2e5"]
+    }
+  );
+}
+
+window.addEventListener("resize", () => {
+  if (lastNewSellerState) drawNewSellerCharts(lastNewSellerState);
+  if (lastLeaderState) drawLeaderCharts(lastLeaderState);
+});
+
 function getNewSellerBonus(units) {
-  if (units >= 110) return 2200;
+  if (units >= 100) return 2200;
   if (units >= 80) return 1200;
   if (units >= 60) return 600;
   return 0;
@@ -75,8 +220,8 @@ function getNewSellerNextBonusMessage(units) {
     const missing = 80 - units;
     return `Buen avance mensual: te faltan ${missing} frasco${missing === 1 ? "" : "s"} para bono de +1,200 Bs.`;
   }
-  if (units < 110) {
-    const missing = 110 - units;
+  if (units < 100) {
+    const missing = 100 - units;
     return `Meta alta: te faltan ${missing} frasco${missing === 1 ? "" : "s"} para bono de +2,200 Bs.`;
   }
   return "Excelente: ya activaste el bono mensual maximo de +2,200 Bs.";
@@ -101,11 +246,11 @@ function getLeaderNextGoalMessage(totalUnits) {
 function getProjectedGoalMessage(projectedSales, monthSalesTotal, workdays) {
   const remainingDays = Math.max(22 - workdays, 0);
 
-  if (projectedSales >= 110) {
-    return "Con este ritmo proyectas meta elite (110+). Excelente rendimiento comercial.";
+  if (projectedSales >= 100) {
+    return "Con este ritmo proyectas meta elite (100+). Excelente rendimiento comercial.";
   }
   if (projectedSales >= 80) {
-    return "Con este ritmo proyectas meta fuerte (80-109). Empuja para cerrar en 110+.";
+    return "Con este ritmo proyectas meta fuerte (80-99). Empuja para cerrar en 100+.";
   }
   if (projectedSales >= 60) {
     return "Con este ritmo proyectas meta base (60-79). Buen avance.";
@@ -198,6 +343,9 @@ function runNewSellerCalculator() {
     nextLevelEl.textContent = getNewSellerNextLevelMessage(sales);
     nextBonusEl.textContent = getNewSellerNextBonusMessage(monthSalesTotal);
     projectionNoteEl.textContent = getProjectedGoalMessage(projectedSales, monthSalesTotal, workdays);
+
+    lastNewSellerState = { sales, monthSalesTotal };
+    drawNewSellerCharts(lastNewSellerState);
   };
 
   input.addEventListener("input", update);
@@ -278,6 +426,14 @@ function runLeaderCalculator() {
     monthIncomeBaseTotalEl.textContent = formatBs(monthIncomeBaseTotal);
     monthIncomeTotalEl.textContent = formatBs(monthIncomeTotal);
     nextTeamGoalEl.textContent = getLeaderNextGoalMessage(monthTeamSalesTotal);
+
+    lastLeaderState = {
+      ownSales,
+      teamSalesList,
+      teamTotalUnits,
+      monthTeamSalesTotal
+    };
+    drawLeaderCharts(lastLeaderState);
   };
 
   ownInput.addEventListener("input", update);

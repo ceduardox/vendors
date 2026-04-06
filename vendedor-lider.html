@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -22,7 +22,7 @@
   </header>
 
   <main class="container reveal">
-    <section class="hero compact">
+    <section class="hero compact" id="inicio">
       <p class="kicker">Rol de Expansion</p>
       <h1>Vendedor Lider (Antiguo)</h1>
       <p class="lead">
@@ -30,198 +30,229 @@
       </p>
     </section>
 
-    <section class="grid cards reveal-stagger">
+    <nav class="section-nav">
+      <a href="#resumen">Resumen</a>
+      <a href="#pagos">Pagos</a>
+      <a href="#graficas">Graficas</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#responsabilidades">Responsabilidades</a>
+    </nav>
+
+    <section id="resumen" class="section">
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-label">Venta propia</span>
+          <strong class="stat-value">30 Bs por frasco</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Mentoria por equipo</span>
+          <strong class="stat-value">5 / 7 / 10 Bs</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Bono mensual de equipo</span>
+          <strong class="stat-value">+300 / +500 / +800 Bs</strong>
+        </div>
+      </div>
+
       <article class="card">
-        <h2>Tu venta propia</h2>
-        <p class="big-number">30 Bs</p>
-        <p class="muted">Por cada frasco que vendas tu.</p>
-      </article>
-      <article class="card">
-        <h2>Mentoria por equipo</h2>
-        <p class="big-number">5 / 7 / 10 Bs</p>
-        <p class="muted">Segun cuantas ventas haga cada nuevo.</p>
-      </article>
-      <article class="card">
-        <h2>Bono grupal</h2>
-        <p class="big-number">+300 / +500 / +800 Bs</p>
-        <p class="muted">Por llegar a metas mensuales de ventas del equipo.</p>
+        <h2>Rol del lider</h2>
+        <p class="muted">Mantienes tu comision personal y ademas ganas por formar, supervisar y hacer crecer al equipo.</p>
       </article>
     </section>
 
-    <section class="grid two-col reveal-stagger">
-      <article class="card">
-        <h2>Ganancia personal</h2>
-        <p class="big-number">30 Bs por frasco propio</p>
-        <p class="muted">
-          Igual que ahora. La diferencia es que este rol tambien cobra por resultados del equipo.
-        </p>
-      </article>
-
-      <article class="card">
+    <section id="pagos" class="section">
+      <div class="section-head">
         <h2>Comision por mentorizar</h2>
-        <div class="table-wrap">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Ventas del nuevo vendedor</th>
-                <th>Paga al lider</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Ventas del nuevo vendedor">1 a 4 frascos</td>
-                <td data-label="Paga al lider">5 Bs por frasco</td>
-              </tr>
-              <tr>
-                <td data-label="Ventas del nuevo vendedor">5 a 9 frascos</td>
-                <td data-label="Paga al lider">7 Bs por frasco</td>
-              </tr>
-              <tr>
-                <td data-label="Ventas del nuevo vendedor">10 o mas</td>
-                <td data-label="Paga al lider">10 Bs por frasco</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted">
-          Este pago es progresivo por tramos dentro de cada vendedor nuevo.
-        </p>
-      </article>
+        <p>Pago progresivo por cada vendedor nuevo.</p>
+      </div>
+      <div class="tier-grid">
+        <article class="tier-card">
+          <span class="tier-range">1 a 4 frascos</span>
+          <strong class="tier-bonus">5 Bs por frasco</strong>
+          <p class="muted">Tramo inicial.</p>
+        </article>
+        <article class="tier-card">
+          <span class="tier-range">5 a 9 frascos</span>
+          <strong class="tier-bonus">7 Bs por frasco</strong>
+          <p class="muted">Tramo intermedio.</p>
+        </article>
+        <article class="tier-card">
+          <span class="tier-range">10 o mas frascos</span>
+          <strong class="tier-bonus">10 Bs por frasco</strong>
+          <p class="muted">Meta alta por vendedor.</p>
+        </article>
+      </div>
+
+      <div class="section-head">
+        <h2>Ejemplo rapido de mentorizar</h2>
+        <p>Pago diario por vendedor nuevo.</p>
+      </div>
+      <div class="example-grid">
+        <article class="example-card">
+          <small>Ventas del nuevo</small>
+          <h3>4 frascos</h3>
+          <p>Pago al lider: 20 Bs</p>
+        </article>
+        <article class="example-card">
+          <small>Ventas del nuevo</small>
+          <h3>6 frascos</h3>
+          <p>Pago al lider: 34 Bs</p>
+        </article>
+        <article class="example-card">
+          <small>Ventas del nuevo</small>
+          <h3>10 frascos</h3>
+          <p>Pago al lider: 65 Bs</p>
+        </article>
+      </div>
+
+      <p class="note">Bono mensual sugerido de equipo: +300 Bs al llegar a 120 frascos, +500 Bs al llegar a 150, +800 Bs al llegar a 180.</p>
     </section>
 
-    <section class="card reveal">
-      <h2>Ejemplo rapido de mentorizar</h2>
-      <div class="table-wrap">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Ventas del nuevo</th>
-              <th>Pago al lider</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-label="Ventas del nuevo">4 frascos</td>
-              <td data-label="Pago al lider">20 Bs</td>
-            </tr>
-            <tr>
-              <td data-label="Ventas del nuevo">6 frascos</td>
-              <td data-label="Pago al lider">34 Bs</td>
-            </tr>
-            <tr>
-              <td data-label="Ventas del nuevo">10 frascos</td>
-              <td data-label="Pago al lider">65 Bs</td>
-            </tr>
-          </tbody>
-        </table>
+    <section id="graficas" class="section">
+      <div class="section-head">
+        <h2>Graficas de equipo</h2>
+        <p>Visualiza ventas del dia y avance mensual del equipo.</p>
+      </div>
+      <div class="panel panel-grid">
+        <div class="panel-block">
+          <h3>Ventas del equipo hoy</h3>
+          <div class="chart-card">
+            <canvas id="leader-chart-daily" class="chart" aria-label="Grafica de ventas diarias del equipo"></canvas>
+          </div>
+          <p class="muted">Incluye tu venta y la de cada nuevo vendedor.</p>
+        </div>
+        <div class="panel-block">
+          <h3>Progreso mensual del equipo</h3>
+          <div class="chart-card">
+            <canvas id="leader-chart-monthly" class="chart" aria-label="Grafica de progreso mensual del equipo"></canvas>
+          </div>
+          <p class="muted">Comparacion con metas 120, 150 y 180.</p>
+        </div>
       </div>
     </section>
 
-    <section class="card reveal">
-      <h2>Responsabilidades del Lider</h2>
-      <ul class="checklist">
-        <li>Onboarding de cada nuevo vendedor en sus primeros 7 dias</li>
-        <li>Diseñar y ejecutar plan semanal de capacitacion online y presencial</li>
-        <li>Practica de guion de llamada y WhatsApp 2 veces por semana con roleplay real</li>
-        <li>Acompanamiento diario 1 a 1 para dar feedback y mejorar cierres</li>
-        <li>Asegurar que cada vendedor domine producto, guiones y manejo de objeciones</li>
-        <li>Guiar al equipo para generar ventas por iniciativa propia (redes, referidos y contactos)</li>
-        <li>Definir metas diarias por vendedor y metas semanales del equipo</li>
-        <li>Crear estrategias concretas cuando alguien no llega a meta (oferta, guion, horario, seguimiento)</li>
-        <li>Revisar conversion por etapa y proponer mejoras accionables cada dia</li>
-        <li>Resolver bloqueos del equipo (app, respuesta, seguimiento, cierre) el mismo dia</li>
-        <li>Reporte diario con ventas, conversion, bloqueos y plan de accion del siguiente dia</li>
-        <li>Mantener motivacion, disciplina comercial y enfoque en cumplimiento de metas</li>
-      </ul>
+    <section id="calculadora" class="section">
+      <div class="section-head">
+        <h2>Calculadora diaria + avance mensual</h2>
+        <p>Simula tu comision total de hoy y el bono mensual del equipo.</p>
+      </div>
+      <div class="panel panel-grid">
+        <div class="panel-block">
+          <h3>Ventas de hoy</h3>
+          <div class="form-grid two">
+            <label>
+              Tus frascos vendidos hoy
+              <input id="leader-own-sales" type="number" min="0" value="12">
+            </label>
+            <label>
+              Vendedor nuevo 1 (hoy)
+              <input class="leader-team-sales" type="number" min="0" value="8">
+            </label>
+            <label>
+              Vendedor nuevo 2 (hoy)
+              <input class="leader-team-sales" type="number" min="0" value="6">
+            </label>
+            <label>
+              Vendedor nuevo 3 (hoy)
+              <input class="leader-team-sales" type="number" min="0" value="10">
+            </label>
+            <label>
+              Ventas acumuladas del equipo en el mes (antes de hoy)
+              <input id="leader-month-team-sales-prev" type="number" min="0" value="0">
+            </label>
+            <label>
+              Ganancia acumulada del lider en el mes (antes de hoy, sin bono mensual)
+              <input id="leader-month-income-prev" type="number" min="0" value="0">
+            </label>
+          </div>
+        </div>
+
+        <div class="panel-block">
+          <div class="report-panel">
+            <div class="report-main">
+              <p>Total a cobrar hoy (sin bono mensual)</p>
+              <strong id="leader-total">0 Bs</strong>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-box">
+                <p>Comision por tus ventas</p>
+                <strong id="leader-own-commission">0 Bs</strong>
+              </div>
+              <div class="result-box">
+                <p>Comision por equipo</p>
+                <strong id="leader-team-commission">0 Bs</strong>
+              </div>
+              <div class="result-box">
+                <p>Bono mensual de equipo (actual)</p>
+                <strong id="leader-team-bonus">0 Bs</strong>
+              </div>
+              <div class="result-box">
+                <p>Ventas del equipo hoy</p>
+                <strong id="leader-team-sales-total">0 frascos</strong>
+              </div>
+            </div>
+
+            <div class="summary-grid">
+              <div class="summary-item">
+                <span>Vendedor nuevo 1 te paga hoy</span>
+                <strong id="leader-v1-pay">0 Bs</strong>
+              </div>
+              <div class="summary-item">
+                <span>Vendedor nuevo 2 te paga hoy</span>
+                <strong id="leader-v2-pay">0 Bs</strong>
+              </div>
+              <div class="summary-item">
+                <span>Vendedor nuevo 3 te paga hoy</span>
+                <strong id="leader-v3-pay">0 Bs</strong>
+              </div>
+              <div class="summary-item">
+                <span>Ventas del equipo acumuladas del mes (actualizado)</span>
+                <strong id="leader-month-team-sales-total">0 frascos</strong>
+              </div>
+              <div class="summary-item">
+                <span>Ganancia del lider acumulada del mes (sin bono)</span>
+                <strong id="leader-month-income-base-total">0 Bs</strong>
+              </div>
+              <div class="summary-item">
+                <span>Ganancia del lider acumulada del mes (con bono actual)</span>
+                <strong id="leader-month-income-total">0 Bs</strong>
+              </div>
+            </div>
+
+            <div class="report-notes">
+              <p id="leader-next-team-goal" class="report-note">-</p>
+              <p class="report-note">Comision por frasco: se calcula por ventas de hoy. Bono del equipo: se define por acumulado mensual.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="card reveal">
-      <h2>Reporte de hoy + avance mensual - Vendedor Lider</h2>
-      <div class="form-grid four">
-        <label>
-          Tus frascos vendidos hoy
-          <input id="leader-own-sales" type="number" min="0" value="12">
-        </label>
-        <label>
-          Vendedor nuevo 1 (hoy)
-          <input class="leader-team-sales" type="number" min="0" value="8">
-        </label>
-        <label>
-          Vendedor nuevo 2 (hoy)
-          <input class="leader-team-sales" type="number" min="0" value="6">
-        </label>
-        <label>
-          Vendedor nuevo 3 (hoy)
-          <input class="leader-team-sales" type="number" min="0" value="10">
-        </label>
-        <label>
-          Ventas acumuladas del equipo en el mes (antes de hoy)
-          <input id="leader-month-team-sales-prev" type="number" min="0" value="0">
-        </label>
-        <label>
-          Ganancia acumulada del lider en el mes (antes de hoy, sin bono mensual)
-          <input id="leader-month-income-prev" type="number" min="0" value="0">
-        </label>
+    <section id="responsabilidades" class="section">
+      <div class="section-head">
+        <h2>Responsabilidades del lider</h2>
+        <p>Tu foco es entrenar, guiar y asegurar resultados.</p>
       </div>
-
-      <div class="report-panel">
-        <div class="report-main">
-          <p>Total a cobrar hoy (sin bono mensual)</p>
-          <strong id="leader-total">0 Bs</strong>
-        </div>
-
-        <div class="result-grid">
-          <div class="result-box">
-            <p>Comision por tus ventas</p>
-            <strong id="leader-own-commission">0 Bs</strong>
-          </div>
-          <div class="result-box">
-            <p>Comision por equipo</p>
-            <strong id="leader-team-commission">0 Bs</strong>
-          </div>
-          <div class="result-box">
-            <p>Bono mensual de equipo (actual)</p>
-            <strong id="leader-team-bonus">0 Bs</strong>
-          </div>
-          <div class="result-box">
-            <p>Ventas del equipo hoy</p>
-            <strong id="leader-team-sales-total">0 frascos</strong>
-          </div>
-        </div>
-
-        <ul class="report-list">
-          <li>
-            <span>Vendedor nuevo 1 te paga hoy</span>
-            <strong id="leader-v1-pay">0 Bs</strong>
-          </li>
-          <li>
-            <span>Vendedor nuevo 2 te paga hoy</span>
-            <strong id="leader-v2-pay">0 Bs</strong>
-          </li>
-          <li>
-            <span>Vendedor nuevo 3 te paga hoy</span>
-            <strong id="leader-v3-pay">0 Bs</strong>
-          </li>
-          <li>
-            <span>Ventas del equipo acumuladas del mes (actualizado)</span>
-            <strong id="leader-month-team-sales-total">0 frascos</strong>
-          </li>
-          <li>
-            <span>Ganancia del lider acumulada del mes (sin bono)</span>
-            <strong id="leader-month-income-base-total">0 Bs</strong>
-          </li>
-          <li>
-            <span>Ganancia del lider acumulada del mes (con bono actual)</span>
-            <strong id="leader-month-income-total">0 Bs</strong>
-          </li>
-        </ul>
-
-        <div class="report-notes">
-          <p id="leader-next-team-goal" class="report-note">-</p>
-          <p class="report-note">Comision por frasco: se calcula por ventas de hoy. Bono del equipo: se define por acumulado mensual.</p>
-        </div>
+      <div class="accordion">
+        <details>
+          <summary>Lista completa de responsabilidades</summary>
+          <ul class="checklist">
+            <li>Onboarding de cada nuevo vendedor en sus primeros 7 dias</li>
+            <li>Diseñar y ejecutar plan semanal de capacitacion online y presencial</li>
+            <li>Practica de guion de llamada y WhatsApp 2 veces por semana con roleplay real</li>
+            <li>Acompanamiento diario 1 a 1 para dar feedback y mejorar cierres</li>
+            <li>Asegurar que cada vendedor domine producto, guiones y manejo de objeciones</li>
+            <li>Guiar al equipo para generar ventas por iniciativa propia (redes, referidos y contactos)</li>
+            <li>Definir metas diarias por vendedor y metas semanales del equipo</li>
+            <li>Crear estrategias concretas cuando alguien no llega a meta (oferta, guion, horario, seguimiento)</li>
+            <li>Revisar conversion por etapa y proponer mejoras accionables cada dia</li>
+            <li>Resolver bloqueos del equipo (app, respuesta, seguimiento, cierre) el mismo dia</li>
+            <li>Reporte diario con ventas, conversion, bloqueos y plan de accion del siguiente dia</li>
+            <li>Mantener motivacion, disciplina comercial y enfoque en cumplimiento de metas</li>
+          </ul>
+        </details>
       </div>
-      <p class="muted">Bono mensual sugerido de equipo: +300 Bs al llegar a 120 frascos, +500 Bs al llegar a 150, +800 Bs al llegar a 180.</p>
     </section>
   </main>
 
