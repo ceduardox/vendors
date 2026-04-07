@@ -32,8 +32,7 @@
 
     <nav class="section-nav">
       <a href="#resumen">Resumen</a>
-      <a href="#pagos">Pagos</a>
-      <a href="#graficas">Graficas</a>
+      <a href="#ganancias">Como ganas</a>
       <a href="#calculadora">Calculadora</a>
       <a href="#responsabilidades">Responsabilidades</a>
     </nav>
@@ -41,7 +40,7 @@
     <section id="resumen" class="section">
       <div class="stat-row">
         <div class="stat">
-          <span class="stat-label">Venta propia</span>
+          <span class="stat-label">Tu venta</span>
           <strong class="stat-value">30 Bs por frasco</strong>
         </div>
         <div class="stat">
@@ -56,92 +55,44 @@
 
       <p class="note">Importante: la comision se calcula por cada vendedor de forma individual. No se suman ventas entre vendedores.</p>
 
-      <div class="panel panel-grid">
-        <div class="panel-block">
-          <h3>Ventas mensuales (resumen)</h3>
-          <div class="chart-card">
-            <canvas id="leader-chart-mini-sales" class="chart chart-mini" aria-label="Grafica rapida de ventas mensuales"></canvas>
-          </div>
-        </div>
-        <div class="panel-block">
-          <h3>Comision mensual (resumen)</h3>
-          <div class="chart-card">
-            <canvas id="leader-chart-mini-pay" class="chart chart-mini" aria-label="Grafica rapida de comision mensual"></canvas>
-          </div>
-        </div>
-      </div>
-
       <article class="card">
-        <h2>Rol del lider</h2>
-        <p class="muted">Mantienes tu comision personal y ademas ganas por formar, supervisar y hacer crecer al equipo.</p>
+        <h2>Regla simple</h2>
+        <p class="muted">Cada vendedor nuevo tiene su propia meta mensual. Segun lo que el venda, se aplica su tasa (5, 7 o 10 Bs) sobre sus frascos.</p>
       </article>
     </section>
 
-    <section id="pagos" class="section">
+    <section id="ganancias" class="section">
       <div class="section-head">
-        <h2>Comision mensual por vendedor nuevo</h2>
-        <p>La tasa se define por el total vendido por cada vendedor en el mes.</p>
-      </div>
-      <div class="tier-grid">
-        <article class="tier-card">
-          <span class="tier-range">60 a 79 frascos</span>
-          <strong class="tier-bonus">5 Bs por frasco</strong>
-          <p class="muted">Meta base por vendedor.</p>
-        </article>
-        <article class="tier-card">
-          <span class="tier-range">80 a 99 frascos</span>
-          <strong class="tier-bonus">7 Bs por frasco</strong>
-          <p class="muted">Buen rendimiento mensual.</p>
-        </article>
-        <article class="tier-card">
-          <span class="tier-range">100 o mas frascos</span>
-          <strong class="tier-bonus">10 Bs por frasco</strong>
-          <p class="muted">Meta alta por vendedor.</p>
-        </article>
+        <h2>Como ganas</h2>
+        <p>Se calcula por cada vendedor individual.</p>
       </div>
 
-      <div class="section-head">
-        <h2>Ejemplo mensual</h2>
-        <p>Pago por vendedor segun su meta individual del mes.</p>
-      </div>
-      <div class="example-grid">
-        <article class="example-card">
-          <small>Ventas del mes</small>
-          <h3>60 frascos</h3>
-          <p>Pago al lider: 300 Bs</p>
-        </article>
-        <article class="example-card">
-          <small>Ventas del mes</small>
-          <h3>80 frascos</h3>
-          <p>Pago al lider: 560 Bs</p>
-        </article>
-        <article class="example-card">
-          <small>Ventas del mes</small>
-          <h3>100 frascos</h3>
-          <p>Pago al lider: 1,000 Bs</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="graficas" class="section">
-      <div class="section-head">
-        <h2>Graficas de equipo</h2>
-        <p>Ventas mensuales y comision mensual por vendedor (individual).</p>
-      </div>
       <div class="panel panel-grid">
         <div class="panel-block">
-          <h3>Ventas mensuales por vendedor</h3>
-          <div class="chart-card">
-            <canvas id="leader-chart-daily" class="chart" aria-label="Grafica de ventas mensuales del equipo"></canvas>
-          </div>
-          <p class="muted">Se calcula con el acumulado mensual de cada vendedor.</p>
+          <h3>1) Tus ventas</h3>
+          <p class="big-number">30 Bs</p>
+          <p class="muted">Por cada frasco que vendas en el mes.</p>
         </div>
         <div class="panel-block">
-          <h3>Comision mensual por vendedor</h3>
-          <div class="chart-card">
-            <canvas id="leader-chart-monthly" class="chart" aria-label="Grafica de comision mensual del equipo"></canvas>
+          <h3>2) Por cada vendedor nuevo</h3>
+          <p class="muted">La tasa depende del total mensual de ese vendedor.</p>
+          <div class="tier-grid">
+            <article class="tier-card">
+              <span class="tier-range">60 a 79 frascos</span>
+              <strong class="tier-bonus">5 Bs por frasco</strong>
+              <p class="muted">Ejemplo: 60 x 5 = 300 Bs.</p>
+            </article>
+            <article class="tier-card">
+              <span class="tier-range">80 a 99 frascos</span>
+              <strong class="tier-bonus">7 Bs por frasco</strong>
+              <p class="muted">Ejemplo: 80 x 7 = 560 Bs.</p>
+            </article>
+            <article class="tier-card">
+              <span class="tier-range">100 o mas frascos</span>
+              <strong class="tier-bonus">10 Bs por frasco</strong>
+              <p class="muted">Ejemplo: 100 x 10 = 1,000 Bs.</p>
+            </article>
           </div>
-          <p class="muted">Aplica la tasa 5 / 7 / 10 segun la meta alcanzada.</p>
         </div>
       </div>
     </section>
@@ -149,7 +100,7 @@
     <section id="calculadora" class="section">
       <div class="section-head">
         <h2>Calculadora mensual del lider</h2>
-        <p>Ingresa las ventas del mes de cada vendedor (individual) y calcula tu comision.</p>
+        <p>Ingresa ventas del mes de cada vendedor. Cada uno se calcula por separado.</p>
       </div>
       <div class="panel panel-grid">
         <div class="panel-block">
@@ -187,7 +138,7 @@
                 <strong id="leader-own-commission">0 Bs</strong>
               </div>
               <div class="result-box">
-                <p>Comision por equipo</p>
+                <p>Comision por vendedores</p>
                 <strong id="leader-team-commission">0 Bs</strong>
               </div>
               <div class="result-box">
@@ -210,7 +161,7 @@
                 <strong id="leader-v3-pay">0 Bs</strong>
               </div>
               <div class="summary-item">
-                <span>Ventas del equipo del mes (solo total)</span>
+                <span>Ventas del equipo del mes (total)</span>
                 <strong id="leader-month-team-sales-total">0 frascos</strong>
               </div>
             </div>
