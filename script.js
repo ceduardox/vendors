@@ -211,9 +211,9 @@ function getNewSellerLevel(units) {
 }
 
 function getLeaderSellerRate(units) {
-  if (units >= 100) return 10;
-  if (units >= 80) return 7;
-  if (units >= 60) return 5;
+  if (units >= 100) return 12;
+  if (units >= 80) return 9;
+  if (units >= 60) return 7;
   return 5;
 }
 
